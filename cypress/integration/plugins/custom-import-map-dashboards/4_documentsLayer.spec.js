@@ -23,6 +23,7 @@ describe('Documents layer', () => {
 
   it('Add new documents layer with configuration', () => {
     cy.visit(`${BASE_PATH}/app/maps-dashboards`);
+    cy.wait(5000);
     cy.contains('Create map', { timeout: 120000 }).click();
     cy.get("button[data-test-subj='addLayerButton']", {
       timeout: 120000,
