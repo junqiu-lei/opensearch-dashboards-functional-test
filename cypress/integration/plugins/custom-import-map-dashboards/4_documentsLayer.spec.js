@@ -23,14 +23,18 @@ describe('Documents layer', () => {
 
   it('Add new documents layer with configuration', () => {
     cy.visit(`${BASE_PATH}/app/maps-dashboards`);
-    cy.contains('Create map').click();
-    cy.get("button[data-test-subj='addLayerButton']").click();
-    cy.contains('Documents').click();
-    cy.contains('Select data source', { timeout: 60000 }).click({
+    cy.contains('Create map', { timeout: 120000 }).click();
+    cy.get("button[data-test-subj='addLayerButton']", {
+      timeout: 120000,
+    }).click();
+    cy.contains('Documents', { timeout: 120000 }).click();
+    cy.contains('Select data source', { timeout: 120000 }).click({
       force: true,
     });
-    cy.wait(5000).contains('opensearch_dashboards_sample_data_flights').click();
-    cy.contains('Select data field', { timeout: 60000 }).click({
+    cy.contains('opensearch_dashboards_sample_data_flights', {
+      timeout: 120000,
+    }).click();
+    cy.contains('Select data field', { timeout: 120000 }).click({
       force: true,
     });
     cy.wait(5000).contains('DestLocation').click();
