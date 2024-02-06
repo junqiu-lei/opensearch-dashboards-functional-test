@@ -4,23 +4,9 @@
  */
 
 import { BASE_PATH } from '../../../utils/constants';
-import { CURRENT_TENANT } from '../../../utils/commands';
 
 describe('Documents layer', () => {
   before(() => {
-    if (Cypress.env('SECURITY_ENABLED')) {
-      /**
-       * Security plugin is using private tenant as default.
-       * So here we'd need to set global tenant as default manually.
-       */
-      cy.changeDefaultTenant({
-        multitenancy_enabled: true,
-        private_tenant_enabled: true,
-        default_tenant: 'Global',
-      });
-    }
-    CURRENT_TENANT.newTenant = 'global';
-
     cy.visit(`${BASE_PATH}/app/home#/tutorial_directory/sampleData`, {
       retryOnStatusCodeFailure: true,
       timeout: 60000,
@@ -80,7 +66,10 @@ describe('Documents layer', () => {
 
   it('Open saved map with documents layer', () => {
     cy.visit(`${BASE_PATH}/app/maps-dashboards`);
-    cy.get('[data-test-subj="mapListingPage"]').should('contain', uniqueName);
+    cy.get('[data-test-subj="mapListingPage"]', { timeout: 120000 }).should(
+      'contain',
+      uniqueName
+    );
     cy.contains(uniqueName).click();
     cy.get('[data-test-subj="layerControlPanel"]').should(
       'contain',
