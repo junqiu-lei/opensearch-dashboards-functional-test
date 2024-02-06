@@ -7,24 +7,10 @@
 
 import { BASE_PATH } from '../../../utils/constants';
 import { MiscUtils } from '@opensearch-dashboards-test/opensearch-dashboards-test-library';
-import { CURRENT_TENANT } from '../../../utils/commands';
 
 const miscUtils = new MiscUtils(cy);
 describe('Verify the presence of import custom map tab in region map plugin', () => {
   before(() => {
-    if (Cypress.env('SECURITY_ENABLED')) {
-      /**
-       * Security plugin is using private tenant as default.
-       * So here we'd need to set global tenant as default manually.
-       */
-      cy.changeDefaultTenant({
-        multitenancy_enabled: true,
-        private_tenant_enabled: true,
-        default_tenant: 'Global',
-      });
-    }
-    CURRENT_TENANT.newTenant = 'global';
-
     cy.deleteAllIndices();
     miscUtils.addSampleData();
 
@@ -40,7 +26,9 @@ describe('Verify the presence of import custom map tab in region map plugin', ()
 
   it('checks import custom map tab is present', () => {
     // Click on "Import Vector Map" tab, which is part of customImportMap plugin
-    cy.contains('Import Vector Map').click({ force: true });
+    cy.contains('Import Vector Map', { timeout: 60000 })
+      .should('be.visible')
+      .click({ force: true });
   });
 
   after(() => {
