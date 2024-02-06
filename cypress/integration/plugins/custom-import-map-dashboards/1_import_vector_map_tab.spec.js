@@ -25,7 +25,7 @@ describe('Verify the presence of import custom map tab in region map plugin', ()
   });
 
   it('checks import custom map tab is present', () => {
-    cy.wait(5000);
+    cy.wait(10000);
     // Click on "Import Vector Map" tab, which is part of customImportMap plugin
     cy.contains('Import Vector Map', { timeout: 120000 })
       .should('be.visible')
