@@ -32,7 +32,7 @@ describe('Documents layer', () => {
       timeout: 120000,
     }).click();
     cy.contains('Documents', { timeout: 120000 }).click();
-    cy.contains('Select index pattern', { timeout: 120000 }).wait(3000).click({
+    cy.contains('Select data source', { timeout: 120000 }).wait(3000).click({
       force: true,
     });
     cy.contains('opensearch_dashboards_sample_data_flights', {
@@ -41,7 +41,7 @@ describe('Documents layer', () => {
     cy.contains('Select data field', { timeout: 120000 }).click({
       force: true,
     });
-    cy.wait(5000).contains('DestLocation').click();
+    cy.wait(10000).contains('DestLocation').click();
     cy.get('[data-test-subj="indexPatternSelect"]').should(
       'contain',
       'opensearch_dashboards_sample_data_flights'
